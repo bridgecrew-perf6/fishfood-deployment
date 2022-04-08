@@ -1,0 +1,24 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: lildeploy
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: https://github.com/selfmanagingresource/fishfood-blueprint.git
+    directory: myfirstbp
+    ref: v0
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/selfmanagingresource/fishfood-blueprint.git
+    directory: myfirstbp
+    ref: v0
+    commit: d73e8418a0ec334b78bc6bf6f0ba2cb4733f7708
+info: {}
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/set-namespace:v0.3.1
+    configPath: package-context.yaml
